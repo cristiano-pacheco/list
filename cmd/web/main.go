@@ -6,6 +6,9 @@ import (
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/cristiano-pacheco/list/pkg/models/mysql"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 // Define an application struct to hold the application-wide dependencies for the
@@ -14,6 +17,7 @@ import (
 type application struct {
 	errorLog *log.Logger
 	infoLog  *log.Logger
+	lists    *mysql.ListModel
 }
 
 func main() {
@@ -36,6 +40,7 @@ func main() {
 	app := &application{
 		errorLog: errorLog,
 		infoLog:  infoLog,
+		lists:    &mysql.ListModel{DB: db},
 	}
 
 	srv := &http.Server{
