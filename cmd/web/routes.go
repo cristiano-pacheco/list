@@ -1,10 +1,11 @@
 package main
 
-import "net/http"
+import (
+	"github.com/go-chi/chi"
+)
 
-func (app *application) routes() *http.ServeMux {
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", app.home)
-
-	return mux
+func (app *application) routes() *chi.Mux {
+	router := chi.NewRouter()
+	router.Get("/", app.home)
+	return router
 }
